@@ -1,280 +1,211 @@
 #include <iostream>
-#include <conio.h>
+
 using namespace std;
+
+
+
+
+
 int main() {
 	setlocale(0, "");
 
-	const int rows = 3;
-	const int cols = 3;
+	//Главное меню
+	cout << "[+] Крестики-нолики" << endl << endl
+		<< "[1] Начать игру" << endl
+		<< "[2] статистика" << endl
+		<< "[3] Настройки" << endl
+		<< "[4] Выйти" << endl;
+	cout << "Введите команду: ";
+	int answer;
+	cin >> answer;
 
-	bool playerX = true;
-	while (true)
+
+	//Переменные
+
+	int arr[3][3] =
 	{
-		char arr[rows][cols] =
+		{1,2,3},
+		{4,5,6},
+		{7,8,9}
+	};
+
+	char game[3][3];
+
+	string colors[5] =
+	{
+		{"\x1b[92m зеленый \x1b[0m"},
+		{"\x1b[95m красный \x1b[0m"},
+		{"\x1b[96m синий \x1b[0m"},
+		{"\x1b[0m белый \x1b[0m"}
+	};
+
+	int motion;
+	int iter = 0;
+	int select_player, select_color;
+	bool settings_is_work = true;
+
+	struct Player
+	{
+		string nickname;
+		char figure;
+		string color;
+	};
+
+	Player players[2] =
+	{
+		{ "Игрок 1", 'X', colors[0]},
+		{ "Игрок 2", 'O', colors[0]}
+	};
+
+	switch (answer)
+	{
+
+		//игра
+	case 1:
+		cout << "[+] Крестики-нолики" << endl
+			<< "[1] Одиночная игра" << endl
+			<< "[2] Два игрока" << endl;
+		cin >> answer;
+
+		switch (answer)
 		{
-			{'-', '-', '-'},
-			{'-', '-', '-'},
-			{'-', '-', '-'}
-		};
-		while (true)
-		{
-			system("cls");
-			for (int i = 0; i < rows; i++)
-			{
-				for (int j = 0; j < cols; j++)
-				{
-					cout << arr[i][j] << " " << " \t";
-				}
-				cout << "\n\n\n";
-			}
-			if (arr[0][0] == 'X' and arr[0][1] == 'X' and arr[0][2] == 'X')
-			{
-				cout << "Выиграл крестик\n\n";
-				system("pause");
-				break;
-			}
-			else if (arr[0][0] == 'O' and arr[0][1] == 'O' and arr[0][2] == 'O')
-			{
-				system("pause");
-				cout << "Выиграл нолик";
-				break;
 
-			}
-			else if (arr[1][0] == 'X' and arr[1][1] == 'X' and arr[1][2] == 'X')
+		case 1:
+			while (true)
 			{
-				system("pause");
-				cout << "Выиграл крестик";
-				break;
-			}
-			else if (arr[1][0] == 'O' and arr[1][1] == 'O' and arr[1][2] == 'O')
-			{
-				system("pause");
-				cout << "Выиграл нолик";
-				break;
-			}
-			else if (arr[2][0] == 'X' and arr[2][1] == 'X' and arr[2][2] == 'X')
-			{
-				system("pause");
-				cout << "Выиграл крестик";
-				break;
-			}
-			else if (arr[2][0] == 'O' and arr[2][1] == 'O' and arr[2][2] == 'O')
-			{
-				system("pause");
-				cout << "Выиграл нолик";
-				break;
-			}
-			else if (arr[0][0] == 'X' and arr[1][0] == 'X' and arr[2][0] == 'X')
-			{
-				system("pause");
-				cout << "Выиграл крестик";
-				break;
-			}
-			else if (arr[0][0] == 'O' and arr[1][0] == 'O' and arr[2][0] == 'O')
-			{
-				system("pause");
-				cout << "Выиграл нолик";
-				break;
-			}
-			else if (arr[0][1] == 'X' and arr[1][1] == 'X' and arr[2][1] == 'X')
-			{
-				system("pause");
-				cout << "Выиграл крестик";
-				break;
-			}
-			else if (arr[0][1] == 'O' and arr[1][1] == 'O' and arr[2][1] == 'O')
-			{
-				system("pause");
-				cout << "Выиграл нолик";
-				break;
-			}
-			else if (arr[0][2] == 'X' and arr[1][2] == 'X' and arr[2][2] == 'X')
-			{
-				system("pause");
-				cout << "Выиграл крестик";
-				break;
-			}
-			else if (arr[0][2] == 'O' and arr[1][2] == 'O' and arr[2][2] == 'O')
-			{
-				system("pause");
-				cout << "Выиграл нолик";
-				break;
-			}
-			else if (arr[0][0] == 'X' and arr[1][1] == 'X' and arr[2][2] == 'X')
-			{
-				system("pause");
-				cout << "Выиграл крестик";
-				break;
-			}
-			else if (arr[0][0] == 'O' and arr[1][1] == 'O' and arr[2][2] == 'O')
-			{
-				system("pause");
-				cout << "Выиграл нолик";
-				break;
-			}
-			else if (arr[0][2] == 'X' and arr[1][1] == 'X' and arr[2][0] == 'X')
-			{
-				system("pause");
-				cout << "Выиграл крестик";
-				break;
-			}
-			else if (arr[0][2] == 'O' and arr[1][1] == 'O' and arr[2][0] == 'O')
-			{
-				system("pause");
-				cout << "Выиграл  нолик";
-				break;
-			}
-			else if (arr[0][0] != '-' and arr[0][1] != '-' and arr[0][2] != '-' and arr[1][0] != '-' and arr[1][1] != '-' and arr[1][2] != '-'
-				and arr[2][0] != '-' and arr[2][1] != '-' and arr[2][2] != '-')
-			{
-				system("pause");
-				cout << "Ничья!";
-			}
+				for (int i = 0; i < 3; i++) {
+					for (int j = 0; j < 3; j++) {
+						if (game[i][j] == players[0].figure || game[i][j] == players[1].figure) {
+							cout << " " << game[i][j] << " |";
+						}
+						else cout << " " << arr[i][j] << " |";
 
-			char k = _getch();
-			switch (k)
-			{
-				{
-			case '1':
-				if (arr[0][0] != '-') break;
-				if (playerX == true)
-				{
-					arr[0][0] = 'X';
-					playerX = !playerX;
+					}
+					cout << endl << "------------" << endl;
+
 				}
-				else if (playerX == false)
-				{
-					arr[0][0] = 'O';
-					playerX = !playerX;
-				}
-				break;
-			case '2':
-				if (arr[0][1] != '-') break;
-				if (playerX == true)
-				{
-					arr[0][1] = 'X';
-					playerX = !playerX;
-				}
-				else if (playerX == false)
-				{
-					arr[0][1] = 'O';
-					playerX = !playerX;
-				}
-				break;
-			case '3':
-				if (arr[0][2] != '-') break;
-				if (playerX == true)
-				{
-					arr[0][2] = 'X';
-					playerX = !playerX;
-				}
-				else if (playerX == false)
-				{
-					arr[0][2] == 'O';
-					playerX = !playerX;
-				}
-				break;
-			case '4':
-				if (arr[1][0] != '-') break;
-				if (playerX == true)
-				{
-					arr[1][0] = 'X';
-					playerX = !playerX;
-				}
-				else if (playerX == false)
-				{
-					arr[1][0] = 'O';
-					playerX = !playerX;
-				}
-				break;
-			case '5':
-				if (arr[1][1] != '-') break;
-				if (playerX == true)
-				{
-					arr[1][1] = 'X';
-					playerX = !playerX;
-				}
-				else if (playerX == false)
-				{
-					arr[1][1] = 'O';
-					playerX = !playerX;
+				cout << "[+] Ход: " << players[iter].nickname << endl;
+				cout << "Введите цифру: ";
+				cin >> motion;
+				for (int i = 0; i < 3; i++) {
+					for (int j = 0; j < 3; j++) {
+						if (arr[i][j] == motion) {
+							if (game[i][j] == players[0].figure || game[i][j] == players[1].figure) {
+								cout << "Поле занято";
+								system("pause");
+								break;
+							}
+							game[i][j] = players[iter].figure;
+							if (iter == 0) {
+								iter = 1;
+							}
+							else iter = 0;
+							break;
+						}
+
+					}
 				}
 
-				break;
-			case '6':
-				if (arr[1][2] != '-') break;
-				if ((arr[0][0] and arr[0][1] and arr[0][2]) == 'X')
-				{
-					cout << "Выиграл крестик";
-					continue;
-				}
-				if (playerX == true)
-				{
-					arr[1][2] = 'X';
-					playerX = !playerX;
-				}
-				else if (playerX == false)
-				{
-					arr[1][2] = 'O';
-					playerX = !playerX;
-				}
-
-				break;
-			case '7':
-				if (arr[2][0] != '-') break;
-				if (playerX == true)
-				{
-					arr[2][0] = 'X';
-					playerX = !playerX;
-				}
-				else if (playerX == false)
-				{
-					arr[2][0] = 'O';
-					playerX = !playerX;
-				}
-				break;
-			case '8':
-				if (arr[2][1] != '-') break;
-				if (playerX == true)
-				{
-					arr[2][1] = 'X';
-					playerX = !playerX;
-				}
-				else if (playerX == false)
-				{
-					arr[2][1] = 'O';
-					playerX = !playerX;
-				}
-				break;
-			case '9':
-				if (arr[2][2] != '-') break;
-				if (playerX == true)
-				{
-					arr[2][2] = 'X';
-					playerX = !playerX;
-				}
-				else if (playerX == false)
-				{
-					arr[2][2] = 'O';
-					playerX = !playerX;
-				}
-				break;
-				}
+				system("cls");
 			}
-			continue;
+
+			break;
+
+
+		case 2:
+			break;
+
+
+		default:
+			break;
+		}
+
+
+
+		break;
+
+
+
+
+		//Статистика
+	case 2:
+
+
+		break;
+
+
+
+
+		//Настройки
+	case 3:
+
+		while (settings_is_work) {
+			//Меню настроек
+			cout << "[+]Настройки игрока" << endl
+				<< "[1] " << players[0].nickname << endl
+				<< "[2] " << players[1].nickname << endl
+				<< "[3] Выйти" << endl;
+
+			cout << "Введите команду: ";
+			cin >> select_player;
+
+			/*bool change_set_player = true;*/
+
+			cout << "[+] Настройки игрока" << "[" << select_player << "]" << endl << endl
+				<< "[1] Ник     : " << players[select_player - 1].nickname << endl
+				<< "[2] Фигура  : " << players[select_player - 1].figure << endl
+				<< "[3] Цвет    : " << players[select_player - 1].color << endl
+				<< "[4] Назад" << endl;
+
+			cout << "Введите команду: ";
+			cin >> answer;
+			// обработка настроек
+
+			switch (answer)
+			{
+			case 1:
+				cout << "Введите новый ник: ";
+				cin >> players[select_player - 1].nickname;
+				break;
+
+
+			case 2:
+				cout << "Введите новую фигуру: ";
+				cin >> players[select_player - 1].figure;
+				break;
+
+
+			case 3:
+
+				for (int i = 0; i < 4; i++) {
+					cout << "[" << i + 1 << "] " << colors[i] << endl;
+				}
+				cout << "Введите новый цвет: ";
+				cin >> select_color;
+				players[select_player - 1].color = colors[select_color - 1];
+				break;
+
+			default:
+				break;
+			}
+
+		}
+		break;
+
+
+
+
+
+
+		//Выйти
+	case 4:
+
+
+		break;
+
+	default:
+		break;
 	}
-}
 
-
-
-
-
-
-
-
-
-
-	int _;
-	cin >> _;
 	return 0;
 }
